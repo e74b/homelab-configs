@@ -10,7 +10,7 @@ ip address add dev wg0 10.8.0.1/16
 
 iptables -I FORWARD 1 -i wg0 -j ACCEPT
 iptables -I FORWARD 1 -o wg0 -j ACCEPT
-iptables -t nat -I POSTROUTING 1 -s 10.8.0.1/24 -o eth0 -j MASQUERADE
+iptables -t nat -I POSTROUTING 1 -s 10.8.0.1/16 -o eth0 -j MASQUERADE
 
 wg set wg0 listen-port 51820 private-key $runtime_dir/privkey
 
