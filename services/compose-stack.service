@@ -1,0 +1,12 @@
+[Unit]
+Description="start up podman compose stack"
+After=network.target
+
+[Service]
+Type=simple
+User=unprivileged
+WorkingDirectory=/miniton/containers
+ExecStart=/usr/bin/podman-compose up
+
+[Install]
+WantedBy=multi-user.target

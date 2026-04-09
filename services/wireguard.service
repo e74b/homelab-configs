@@ -1,0 +1,13 @@
+[Unit]
+Description="wireguard vpn"
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/miniton/scripts
+ExecStart=/miniton/scripts/wireguard.sh
+ExecStop=/miniton/scripts/network_down.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

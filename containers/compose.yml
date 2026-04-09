@@ -1,0 +1,8 @@
+volumes:
+  navidrome-data:
+    driver: local
+  music-folder:
+    driver: local
+
+include:
+  - media.yml

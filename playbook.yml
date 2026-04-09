@@ -1,0 +1,55 @@
+- name: Deploy stack
+  hosts: miniton
+  tasks:
+    - name: ping hosts
+      ansible.builtin.ping:
+
+    - name: enable caddy copr
+      community.general.copr:
+        name: "@caddy/caddy"
+        state: enabled
+        chroot: "epel-10-{{ansible_facts['architecture']}}"
+
+    - name: dependency checks
+      ansible.builtin.dnf:
+        state: present
+        name:
+          - podman
+          - podman-compose
+          - caddy
+          - wireguard-tools
+          - iproute
+          - jq
+          - iptables
+
+    - name: sync configs
+      ansible.builtin.copy:
+        src: ./
+        dest: /miniton/
+        owner: root
+        mode: "0777"
+
+
+    - name: ensure persistent data consistency
+      ansible.builtin.script:
+        cmd: ./scripts/setup_user.sh
+
+    - name: configure systemd units (compose)
+      ansible.builtin.systemd_service:
+        name: compose-stack.service
+        state: "restarted"
+        enabled: true
+
+    - name: configure systemd units (wireguard)
+      ansible.builtin.systemd_service:
+        name: wireguard.service
+        state: "restarted"
+        enabled: true
+
+    - name: install systemd units
+      ansible.builtin.debug:
+        msg: TODO
+
+    - name: enable systemd units
+      ansible.builtin.debug:
+        msg: TODO

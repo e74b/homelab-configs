@@ -1,0 +1,23 @@
+
+services:
+  navidrome:
+    image: "docker.io/deluan/navidrome:latest"
+    ports:
+      - "4533:4533"
+    volumes:
+      - "navidrome-data:/data"
+      - "music-folder:/music:ro"
+    restart: unless-stopped
+
+  feishin:
+    image: "ghcr.io/jeffvli/feishin:latest"
+    user: "1000:1000"
+    ports:
+      - "9180:9180"
+    environment:
+      - SERVER_NAME=miniton
+      - SERVER_LOCK=false
+      - SERVER_TYPE=navidrome
+      - SERVER_URL=https://navidrome.e74b.net/
+    restart: unless-stopped
+
