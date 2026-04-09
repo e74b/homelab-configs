@@ -10,6 +10,11 @@
         state: enabled
         chroot: "epel-10-{{ansible_facts['architecture']}}"
 
+    - name: add epel
+      ansible.builtin.dnf:
+        state: present
+        name: epel-release 
+
     - name: dependency checks
       ansible.builtin.dnf:
         state: present
