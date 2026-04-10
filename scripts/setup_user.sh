@@ -16,6 +16,6 @@ chown unprivileged /data
 # not sure if this is needed
 # loginctl enable-linger unprivileged
 
-mv /miniton/services/*.service /etc/systemd/system/
+cp /miniton/services/*.service /etc/systemd/system/
 systemctl daemon-reload
 
