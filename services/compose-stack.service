@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-User=unprivileged
+# User=unprivileged
 WorkingDirectory=/miniton/containers
 ExecStart=/usr/bin/podman-compose up
 
